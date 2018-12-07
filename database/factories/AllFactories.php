@@ -37,14 +37,14 @@ $factory->define(User::class, function (Faker $faker) {
 $factory->define(Category::class, function (Faker $faker) {
     return [
         'name' => $faker->word,
-        'description' => $faker->paragraphs(1),
+        'description' => $faker->paragraph(1),
     ];
 });
 
 $factory->define(Product::class, function (Faker $faker) {
     return [
         'name' => $faker->word,
-        'description' => $faker->paragraphs(1),
+        'description' => $faker->paragraph(1),
         'quantity' => $faker->numberBetween(1, 10),
         'status' => $faker->randomElement([Product::AVAILABLE_PRODUCT, Product::UNAVAILABLE_PRODUCT
         ]),
