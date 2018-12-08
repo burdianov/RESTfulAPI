@@ -100,16 +100,10 @@ class UserController extends ApiController
         return $this->showOne($user);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(User $user)
     {
         $user->delete();
 
-        return $this->showOne($user, Response::HTTP_NO_CONTENT);
+        return $this->showOne($user, Response::HTTP_OK);
     }
 }
