@@ -34,9 +34,11 @@ class ProductBuyerTransactionController extends ApiController
         if (!$product->seller->isVerified()) {
             return $this->errorResponse('The seller must be a verified user', Response::HTTP_CONFLICT);
         }
+
         if (!$product->isAvailable()) {
             return $this->errorResponse('The product is not available', Response::HTTP_CONFLICT);
         }
+
         if ($product->quantity < $request->quantity) {
             return $this->errorResponse('The product does not have enough units for this transaction', Response::HTTP_CONFLICT);
         }
