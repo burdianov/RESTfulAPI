@@ -42,6 +42,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
         'verification_token'
+        //'verification_token' //for testing purpose
     ];
 
     public function setNameAttribute($name)
