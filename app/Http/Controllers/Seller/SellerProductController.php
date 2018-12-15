@@ -86,6 +86,11 @@ class SellerProductController extends ApiController
                 return $this->errorResponse('An active product must have at least one category', Response::HTTP_CONFLICT);
             }
         }
+        if ($request->hasFile('image')) {
+            Storage::delete($product->image);
+
+            $product->image = $request->image->store('');
+        }
         if ($product->isClean()) {
             return $this->errorResponse('You need to specify different values to update', Response::HTTP_UNPROCESSABLE_ENTITY);
         }
