@@ -20,12 +20,19 @@ trait ApiResponser
 
     protected function showAll(Collection $collection, $code = Response::HTTP_OK)
     {
-        return $this->successResponse(['data' => $collection], $code);
+        if ($collection->isEmpty()) {
+            return $this->successResponse(['data' => $collection], $code);
+        }
+        $transformer = $collection->first()->transformer;
+        $collection = $this->transformData($collection, $transformer);
+        return $this->successResponse($collection, $code);
     }
 
-    protected function showOne(Model $model, $code = Response::HTTP_OK)
+    protected function showOne(Model $instance, $code = Response::HTTP_OK)
     {
-        return $this->successResponse(['data' => $model], $code);
+        $transformer = $instance->transformer;
+        $instance = $this->transformData($instance, $transformer);
+        return $this->successResponse($instance, $code);
     }
 
     protected function showMessage($message, $code = Response::HTTP_OK)
@@ -33,4 +40,10 @@ trait ApiResponser
         return $this->successResponse(['data' => $message], $code);
     }
 
+    protected function transformData($data, $transformer)
+    {
+        $transformation = fractal($data, new $transformer);
+
+        return $transformation->toArray();
+    }
 }
