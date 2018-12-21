@@ -27,7 +27,7 @@ trait ApiResponser
 
         $collection = $this->sortData($collection);
         $collection = $this->transformData($collection, $transformer);
-        
+
         return $this->successResponse($collection, $code);
     }
 
